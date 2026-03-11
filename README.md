@@ -1,1 +1,11 @@
-# comandas_api
+__pycache__/
+venv/
+.venv/
+Include/
+Lib/
+Scripts/
+share/
+pyvenv.cfg
+.idea
+.vscode
+comandas_db.db

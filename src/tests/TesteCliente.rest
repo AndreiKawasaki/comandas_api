@@ -1,0 +1,31 @@
+### Autor: Andrei Ryuichi Kawasaki
+
+### Verbo GET – listar todos
+GET http://127.0.0.1:8000/cliente/ HTTP/1.1
+
+### Verbo GET – listar um
+GET http://127.0.0.1:8000/cliente/5 HTTP/1.1
+
+### Verbo POST – adicionar
+POST http://127.0.0.1:8000/cliente/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "nome": "Andrei Ryuichi Kawasaki",
+  "cpf": "987.654.321-00",
+  "telefone": "11911111111"
+}
+
+### Verbo PUT – atualizar
+PUT http://127.0.0.1:8000/cliente/5 HTTP/1.1
+Content-Type: application/json
+
+{
+  "nome": "Andrei Ryuichi Kawasaki",
+  "cpf": "987.654.321-00",
+  "telefone": "11922222222"
+}
+
+### Verbo DELETE - excluir
+DELETE http://127.0.0.1:8000/cliente/5 HTTP/1.1
+
