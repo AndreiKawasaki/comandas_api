@@ -9,7 +9,19 @@ from routers import FuncionarioRouter
 from routers import ClienteRouter
 from routers import ProdutoRouter
 
-app = FastAPI()
+from infra import database
+from contextlib import asynccontextmanager
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("API has started")
+    await database.cria_tabelas()
+    yield
+    print("API is shutting down")
+
+
+app = FastAPI(lifespan=lifespan)
 
 # mapeamento das rotas/endpoints
 app.include_router(FuncionarioRouter.router)
@@ -23,7 +35,7 @@ if __name__ == "__main__":
 
 # rota padrão
 @app.get("/", tags=["Root"], status_code=200)
-def root():
+async def root():
     return {
         "detail": "API Pastelaria",
         "autor": "Andrei Ryuichi Kawasaki",
