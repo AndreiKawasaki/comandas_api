@@ -10,7 +10,8 @@ load_dotenv(dotenv_file)
 # Configurações da API
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = os.getenv("PORT", "8000")
-RELOAD = os.getenv("RELOAD", True)
+_reload = os.getenv("RELOAD", "True")
+RELOAD = str(_reload).lower() in ("true", "1", "yes")
 
 # Configurações banco de dados
 DB_SGDB = os.getenv("DB_SGDB", "sqlite")
@@ -22,7 +23,7 @@ DB_PASS = os.getenv("DB_PASS", "")
 
 # Ajusta STR_DATABASE conforme gerenciador escolhido
 if DB_SGDB == "sqlite":  # SQLite
-    STR_DATABASE = f"sqlite:///{DB_NAME}.db"
+    STR_DATABASE = f"sqlite:///{DB_NAME}.db?foreign_keys=1"
 elif DB_SGDB == "mysql":  # MySQL
     import pymysql  # noqa: F401
 
@@ -32,4 +33,10 @@ elif DB_SGDB == "mssql":  # SQL Server
 
     STR_DATABASE = f"mssql+pymssql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}?charset=utf8"
 else:  # SQLite (fallback)
-    STR_DATABASE = "sqlite:///apiDatabase.db"
+    STR_DATABASE = "sqlite:///apiDatabase.db?foreign_keys=1"
+
+# Configurações JWT
+SECRET_KEY = os.getenv("SECRET_KEY", "sua-chave-secreta-super-forte-mudar-em-producao")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "15"))
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))

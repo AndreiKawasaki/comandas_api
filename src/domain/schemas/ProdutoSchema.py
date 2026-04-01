@@ -26,3 +26,13 @@ class ProdutoResponse(BaseModel):
     foto: bytes
     valor_unitario: float
 
+
+class ProdutoPublicItem(BaseModel):
+    """Catálogo público: sem id e sem valor unitário."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    nome: str
+    descricao: str
+    foto: bytes
+
